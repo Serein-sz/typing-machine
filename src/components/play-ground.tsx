@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Prism } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Patch, createAnimator, generatePatches } from "@/core/paly";
@@ -12,8 +12,7 @@ interface Props {
 const PlayGround: React.FC<Props> = ({ isAction }) => {
   const codes = useCodeStore(state => state.codes);
   const [animationCode, setAnimationCode] = useState("");
-
-  async function actionPlay() {
+  const actionPlay = useCallback(async () => {
     if (codes.length < 2) {
       return;
     }
@@ -27,13 +26,13 @@ const PlayGround: React.FC<Props> = ({ isAction }) => {
       setAnimationCode(result.output);
       await sleep(70);
     }
-  }
+  }, [codes])
 
   useEffect(() => {
     if (isAction) {
       actionPlay();
     }
-  }, [isAction]);
+  }, [isAction, actionPlay]);
   return (
     <Prism
       language="javascript"

@@ -8,8 +8,8 @@ interface Props {
   className: string;
   code: string;
 }
-const edit: React.FC<Props> = ({ className, code }) => {
-  const currentLanguage = useCodeStore(state => state.currentLanguage)
+const Edit: React.FC<Props> = ({ className, code }) => {
+  const currentLanguage = useCodeStore(state => state.currentLanguage);
   const editCode = useCodeStore(useShallow(state => state.editCode));
   const codeEditRef = useRef<HTMLTextAreaElement | null>(null);
   const [lineHeight, setLineHeight] = useState(0);
@@ -63,4 +63,4 @@ const edit: React.FC<Props> = ({ className, code }) => {
   );
 };
 
-export default edit;
+export { Edit };

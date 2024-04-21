@@ -1,6 +1,6 @@
 "use client";
 
-import Edit from "@/components/edit";
+import { Edit } from "@/components/edit";
 import { Thumbnail } from "@/components/thumbnail";
 import { PlayGround } from "@/components/play-ground";
 import { Button } from "@/components/ui/button";

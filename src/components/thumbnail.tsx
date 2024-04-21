@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { TrashIcon } from "@radix-ui/react-icons";
 import useCodeStore from "@/store/useCodeStore";
 import { useShallow } from "zustand/react/shallow";
-
+import Image from "next/image";
 interface Props {
   isEdit: boolean;
   code: string;
@@ -21,6 +21,7 @@ const Thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const prismRef = useRef<HTMLDivElement | null>(null);
   const [lineHeight, setLineHeight] = useState(0);
+  const [src, setSrc] = useState("/SCR-20240421-tdxy.png");
 
   useEffect(() => {
     // 获取 HTML 根元素
@@ -31,6 +32,7 @@ const Thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
     setLineHeight(parseFloat(lineHeight));
     const el = prismRef.current!.firstElementChild as HTMLElement;
     html2canvas(el).then(canvas => {
+      setSrc(canvas.toDataURL());
       imgRef.current!.src = canvas.toDataURL();
     });
   }, [code, currentLanguage]);
@@ -50,12 +52,16 @@ const Thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
   return (
     <>
       <div className="relative">
-        <img
+        <Image
           className={`h-28 w-40 truncate rounded-lg ${
             isEdit ? "border border-teal-400" : ""
           }`}
+          src={src}
+          width={1000}
+          height={1000}
           ref={imgRef}
-        ></img>
+          alt=""
+        ></Image>
         <Button
           onClick={() => removeCode(index)}
           variant="outline"
