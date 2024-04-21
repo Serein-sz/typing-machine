@@ -37,7 +37,7 @@ const PlayGround: React.FC<Props> = ({ isAction }) => {
     <Prism
       language="javascript"
       style={{ ...okaidia }}
-      className="absolute w-[60vw] h-[60vh] pointer-events-none"
+      className="absolute top-16 w-[60vw] h-[70vh] pointer-events-none"
     >
       {animationCode}
     </Prism>
