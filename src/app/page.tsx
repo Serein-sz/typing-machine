@@ -34,6 +34,7 @@ export default function Home() {
                 }}
               >
                 <Thumbnail
+                  index={index}
                   code={code}
                   isEdit={cursorIndex === index}
                 ></Thumbnail>

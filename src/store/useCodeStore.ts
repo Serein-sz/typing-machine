@@ -1,13 +1,5 @@
 import { create } from "zustand";
 
-interface codeStore {
-  codes: string[];
-  cursorIndex: number;
-  appendCode: () => void;
-  editCode: (code: string) => void;
-  changeCursorIndex: (index: number) => void;
-}
-
 const exampleOne = `import { create } from "zustand";
 
 interface codeStore {
@@ -39,6 +31,15 @@ const useCodeStore = create<codeStore>(set => ({
 export default useCodeStore;
 `;
 
+interface codeStore {
+  codes: string[];
+  cursorIndex: number;
+  appendCode: () => void;
+  editCode: (code: string) => void;
+  removeCode: (index: number) => void;
+  changeCursorIndex: (index: number) => void;
+}
+
 const useCodeStore = create<codeStore>(set => ({
   codes: [exampleOne, exampleTwo],
   cursorIndex: 0,
@@ -52,6 +53,13 @@ const useCodeStore = create<codeStore>(set => ({
     set(state => {
       const newCodes = [...state.codes];
       newCodes[state.cursorIndex] = code;
+      return { ...state, codes: newCodes };
+    });
+  },
+  removeCode: index => {
+    set(state => {
+      const newCodes = [...state.codes];
+      newCodes.splice(index, 1);
       return { ...state, codes: newCodes };
     });
   },
