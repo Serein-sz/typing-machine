@@ -32,8 +32,10 @@ export default useCodeStore;
 `;
 
 interface codeStore {
+  currentLanguage: string;
   codes: string[];
   cursorIndex: number;
+  changeLanguage: (language: string) => void;
   appendCode: () => void;
   editCode: (code: string) => void;
   removeCode: (index: number) => void;
@@ -41,8 +43,10 @@ interface codeStore {
 }
 
 const useCodeStore = create<codeStore>(set => ({
+  currentLanguage: "typescript",
   codes: [exampleOne, exampleTwo],
   cursorIndex: 0,
+  changeLanguage: language => set(state => ({ ...state, currentLanguage: language })),
   appendCode: () =>
     set(state => ({
       ...state,
@@ -63,11 +67,7 @@ const useCodeStore = create<codeStore>(set => ({
       return { ...state, codes: newCodes };
     });
   },
-  changeCursorIndex: index => {
-    set(state => {
-      return { ...state, cursorIndex: index };
-    });
-  }
+  changeCursorIndex: index => set(state => ({ ...state, cursorIndex: index }))
 }));
 
 export default useCodeStore;

@@ -9,6 +9,7 @@ interface Props {
   code: string;
 }
 const edit: React.FC<Props> = ({ className, code }) => {
+  const currentLanguage = useCodeStore(state => state.currentLanguage)
   const editCode = useCodeStore(useShallow(state => state.editCode));
   const codeEditRef = useRef<HTMLTextAreaElement | null>(null);
   const [lineHeight, setLineHeight] = useState(0);
@@ -52,7 +53,7 @@ const edit: React.FC<Props> = ({ className, code }) => {
         onChange={handleChangeCode}
       />
       <Prism
-        language="javascript"
+        language={currentLanguage}
         style={{ ...okaidia }}
         className="absolute w-full h-full pointer-events-none"
       >

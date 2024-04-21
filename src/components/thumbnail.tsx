@@ -15,8 +15,9 @@ interface Props {
   index: number;
 }
 
-const thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
-  const removeCode = useCodeStore(useShallow(state => state.removeCode))
+const Thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
+  const currentLanguage = useCodeStore(state => state.currentLanguage);
+  const removeCode = useCodeStore(useShallow(state => state.removeCode));
   const imgRef = useRef<HTMLImageElement | null>(null);
   const prismRef = useRef<HTMLDivElement | null>(null);
   const [lineHeight, setLineHeight] = useState(0);
@@ -32,7 +33,7 @@ const thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
     html2canvas(el).then(canvas => {
       imgRef.current!.src = canvas.toDataURL();
     });
-  }, [code]);
+  }, [code, currentLanguage]);
 
   function standardizationCode(code: string) {
     const lines = code.split("\n");
@@ -55,7 +56,12 @@ const thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
           }`}
           ref={imgRef}
         ></img>
-        <Button onClick={() => removeCode(index)} variant="outline" size="icon" className="absolute top-1 right-1 opacity-0 hover:opacity-100">
+        <Button
+          onClick={() => removeCode(index)}
+          variant="outline"
+          size="icon"
+          className="absolute top-1 right-1 opacity-0 hover:opacity-100"
+        >
           <TrashIcon />
         </Button>
       </div>
@@ -63,7 +69,7 @@ const thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
         ref={prismRef}
         className="fixed top-[100vh] min-h-28 min-w-40 w-[60vw] h-[60vh]"
       >
-        <Prism language="javascript" style={{ ...okaidia }}>
+        <Prism language={currentLanguage} style={{ ...okaidia }}>
           {standardizationCode(code)}
         </Prism>
       </div>
@@ -71,4 +77,4 @@ const thumbnail: React.FC<Props> = ({ isEdit, code, index }) => {
   );
 };
 
-export default thumbnail;
+export { Thumbnail };

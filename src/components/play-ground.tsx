@@ -9,7 +9,7 @@ interface Props {
   isAction: boolean;
 }
 
-const palyground: React.FC<Props> = ({ isAction }) => {
+const PlayGround: React.FC<Props> = ({ isAction }) => {
   const codes = useCodeStore(state => state.codes);
   const [animationCode, setAnimationCode] = useState("");
 
@@ -45,4 +45,4 @@ const palyground: React.FC<Props> = ({ isAction }) => {
   );
 };
 
-export default palyground;
+export { PlayGround };

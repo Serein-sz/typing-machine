@@ -1,8 +1,8 @@
 "use client";
 
 import Edit from "@/components/edit";
-import Thumbnail from "@/components/thumbnail";
-import Playground from "@/components/playground";
+import { Thumbnail } from "@/components/thumbnail";
+import { PlayGround } from "@/components/play-ground";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -10,6 +10,7 @@ import useCodeStore from "@/store/useCodeStore";
 import { Cross1Icon, PlayIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useShallow } from "zustand/react/shallow";
 import { useState } from "react";
+import { LanguagesCheck } from "@/components/languages-check";
 
 export default function Home() {
   const codes = useCodeStore(state => state.codes);
@@ -51,13 +52,14 @@ export default function Home() {
         </div>
       </ScrollArea>
       <div className="ml-auto mr-auto flex self-center flex-col">
+        <LanguagesCheck />
         <Edit
           className="relative w-[60vw] h-[60vh]"
           code={codes[cursorIndex]}
         />
         {isAction ? (
           <>
-            <Playground isAction={isAction} />
+            <PlayGround isAction={isAction} />
             <Button
               className="ml-auto mr-auto mt-10 bg-red-400 z-20"
               onClick={() => setIsAction(false)}
