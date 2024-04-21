@@ -10,6 +10,7 @@ interface Props {
 }
 
 const PlayGround: React.FC<Props> = ({ isAction }) => {
+  const currentLanguage = useCodeStore(state => state.currentLanguage);
   const codes = useCodeStore(state => state.codes);
   const [animationCode, setAnimationCode] = useState("");
   const actionPlay = useCallback(async () => {
@@ -35,7 +36,7 @@ const PlayGround: React.FC<Props> = ({ isAction }) => {
   }, [isAction, actionPlay]);
   return (
     <Prism
-      language="javascript"
+      language={currentLanguage}
       style={{ ...okaidia }}
       className="absolute top-16 w-[60vw] h-[70vh] pointer-events-none z-20"
     >
